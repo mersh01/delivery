@@ -1,0 +1,70 @@
+.help-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 5%;
+    text-align: center;
+  }
+ 
+  .carousel-container {
+    margin: 80px 0;
+    position: relative;
+  }
+  
+  .carousel-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .carousel-image {
+    width: 80%; /* Adjust to control image size */
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+  }
+  
+  .next-arrow {
+    right: 70px; /* Position on the right */
+  }
+  
+  .prev-arrow {
+    left: 0px; /* Position on the left */
+  }
+  
+  .help-section {
+    margin-bottom: 40px;
+    margin-top: 100px;
+  }
+
+  
+  
+  .carousel-description {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+  }
+  /* Make sure the Navbar is full width */
+
+ 
+  
+  
+  

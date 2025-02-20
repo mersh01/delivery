@@ -1,0 +1,60 @@
+/* OrderScreen.css */
+.order-screen {
+    padding: 80px 5%;
+    background-color: #f8f8f8;
+  }
+  
+  header {
+    background-color: #ff5722;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  header h1 {
+    margin: 0;
+  }
+  
+  button {
+    padding: 8px 16px;
+    background-color: #fff;
+    border: none;
+    color: #ff5722;
+    cursor: pointer;
+  }
+  
+  .orders-list {
+    margin-top: 20px;
+  }
+  
+  .order-card {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .order-card h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .order-card p {
+    margin: 5px 0;
+  }
+  
+  .order-card h4 {
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  li {
+    margin: 5px 0;
+  }
+  
