@@ -28,7 +28,7 @@ function App() {
           v7_startTransition: true, // Opt into startTransition behavior
           v7_relativeSplatPath: true, // Opt into new relative splat path behavior
         }}
-      >Navbars /> {/* Render Navbars outside Routes for global access */}
+      <Home /> {/* Render Navbars outside Routes for global access */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
