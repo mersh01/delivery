@@ -19,39 +19,27 @@ import 'slick-carousel/slick/slick-theme.css';
 import Registration from './pages/Registration';
 
 function App() {
-  const [cart, setCart] = useState([]); // Cart state
-
   return (
     <UserProvider>
-      <Router
-        future={{
-          v7_startTransition: true, // Opt into startTransition behavior
-          v7_relativeSplatPath: true, // Opt into new relative splat path behavior
-        }}
-      >
-        <Navbars /> {/* Render Navbars outside Routes for global access */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/list" element={<List />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/registration" element={<Registration />} />
-          <Route
-            path="/menu/:id"
-            element={<Menu cart={cart} setCart={setCart} />}
-          />
-          <Route path="/shopmenu/:id" element={<Shopmenu />} />
-          <Route
-            path="/cart"
-            element={<Cart cart={cart} setCart={setCart} />}
-          />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/placedorder" element={<Placedorder />} />
-          <Route path="/paymentpage" element={<PaymentPage />} />
-        </Routes>
-      </Router>
+      
+        <Router basename="/delivery"> {/* Add basename */}
+          <Navbars />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/list" element={<List />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/registration" element={<Registration />} />
+            <Route path="/menu/:id" element={<Menu />} />
+            <Route path="/shopmenu/:id" element={<Shopmenu />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/placedorder" element={<Placedorder />} />
+            <Route path="/paymentpage" element={<PaymentPage />} />
+          </Routes>
+        </Router>
     </UserProvider>
   );
 }

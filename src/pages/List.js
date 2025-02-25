@@ -1,43 +1,36 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link, useSearchParams, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Navbars from '../components/Navbars';
 import Footer from '../components/Footer';
-import ReactLoading from 'react-loading'; // Import for loading spinner
-import { UserContext } from '../components/Usercontext'; // Import the context
-import config from '../config'; // Import the configuration file
+import ReactLoading from 'react-loading';
+import { UserContext } from '../components/Usercontext';
+import config from '../config';
 
 // Helper function to fetch restaurants or shops
 const fetchData = async (latitude, longitude, category = '', type = 'restaurant') => {
   let url = `${config.backendUrl}/restaurants?latitude=${latitude}&longitude=${longitude}`;
-  console.log("Fetching data for type:", type);
-
   if (type === 'shop') {
     url = `${config.backendUrl}/shops?user_lat=${latitude}&user_lng=${longitude}&category=${category}`;
   }
-
-
-  console.log("Request URL:", url); // Debugging the final URL
   const response = await fetch(url);
   const data = await response.json();
-  console.log("API Response:", data); // Log the response to check the structure
   return data;
 };
 
 const List = () => {
-  const { setUser } = useContext(UserContext); // Get the setUser function from context
+  const { setUser } = useContext(UserContext);
   const [places, setPlaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [category, setCategory] = useState('');
-  const [type, setType] = useState('restaurant');  // Track the type (restaurant or shop)
-  const [latitude, setLatitude] = useState(null); // Store latitude dynamically
-  const [longitude, setLongitude] = useState(null); // Store longitude dynamically
+  const [type, setType] = useState('restaurant');
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
   const [searchParams] = useSearchParams();
   const user_id = searchParams.get('user_id');
   const username = searchParams.get('username');
-  const navigate = useNavigate(); // Use navigate for navigation
-  console.log('userIds:', user_id);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setUser({ user_id, username });
@@ -50,25 +43,12 @@ const List = () => {
         (position) => {
           setLatitude(position.coords.latitude);
           setLongitude(position.coords.longitude);
-          setError(''); // Clear the error on success
+          setError('');
           setLoading(false);
-          console.log('Location fetched: ', position.coords);
         },
         (error) => {
           console.error('Geolocation error:', error.message);
-          switch (error.code) {
-            case error.PERMISSION_DENIED:
-              setError('Permission denied. Please enable location in browser settings.');
-              break;
-            case error.POSITION_UNAVAILABLE:
-              setError('Location unavailable. Try again later.');
-              break;
-            case error.TIMEOUT:
-              setError('Request timed out. Try again.');
-              break;
-            default:
-              setError('Geolocation failed. Please check your settings.');
-          }
+          setError('Unable to fetch location. Please enable location access.');
           setLoading(false);
         }
       );
@@ -77,16 +57,14 @@ const List = () => {
       setLoading(false);
     }
   }, []);
-  
 
   useEffect(() => {
     const getPlaces = async () => {
       if (latitude !== null && longitude !== null) {
         try {
           setLoading(true);
-          setError('');  // Reset the error before attempting to fetch data
-          const data = await fetchData(latitude || 0, longitude || 0, category, type);
-  
+          setError('');
+          const data = await fetchData(latitude, longitude, category, type);
           if (data.success) {
             const places = data.restaurants || data.shops || [];
             const placesWithType = places.map(place => ({
@@ -96,7 +74,7 @@ const List = () => {
             setPlaces(placesWithType);
           } else {
             setError(data.message || 'Failed to fetch data');
-            setPlaces([]); 
+            setPlaces([]);
           }
         } catch (err) {
           setError('Failed to fetch data.');
@@ -106,113 +84,92 @@ const List = () => {
         }
       }
     };
-
     getPlaces();
   }, [latitude, longitude, category, type]);
 
   const handleCategoryChange = (e) => {
-    setCategory(e.target.value);  // Update category and fetch filtered shops
+    setCategory(e.target.value);
   };
 
   const handleTypeChange = (e) => {
     const selectedType = e.target.value;
     setType(selectedType);
-  
-    // If switching to 'shop', default the category to 'Clothing' (value: '1')
     if (selectedType === 'shop') {
       setCategory('1');
     } else {
-      setCategory('');  // Reset category if it's not a shop
+      setCategory('');
     }
   };
 
-  // Handle Cart Button Click
   const goToCart = () => {
     navigate('/cart', { state: { user_id, username } });
   };
-  
+
   return (
     <>
       <Navbars />
-
       <Container>
-        <Title>Choose a Restaurant or Shop</Title>
+        <Title>Discover Restaurants & Shops Near You</Title>
 
-        {/* Button to navigate to the Cart page */}
-        <CartButton onClick={goToCart}>Go to Cart</CartButton>
+        <CartButton onClick={goToCart}>🛒 View Cart</CartButton>
 
-        {/* Toggle between Restaurant and Shop */}
         <FilterContainer>
-          <Label htmlFor="type">Select Type: </Label>
+          <Label htmlFor="type">Type: </Label>
           <Select id="type" value={type} onChange={handleTypeChange}>
             <option value="restaurant">Restaurant</option>
             <option value="shop">Shop</option>
           </Select>
+
+          {type === 'shop' && (
+            <>
+              <Label htmlFor="category">Category: </Label>
+              <Select id="category" value={category} onChange={handleCategoryChange}>
+                <option value="1">Clothing</option>
+                <option value="2">Shoes</option>
+                <option value="3">Electronics</option>
+                <option value="4">All Categories</option>
+              </Select>
+            </>
+          )}
         </FilterContainer>
 
-        {/* If the type is 'shop', show the category filter */}
-        {type === 'shop' && (
-          <FilterContainer>
-            <Label htmlFor="category">Select Category: </Label>
-            <Select id="category" value={category} onChange={handleCategoryChange}>
-              <option value="1">Clothing</option>
-              <option value="2">Shoes</option>
-              <option value="3">Electronics</option>
-              <option value="4">All Categories</option>
-            </Select>
-          </FilterContainer>
-        )}
-
-        {/* Loading spinner */}
         {loading && (
           <SpinnerContainer>
-            <ReactLoading type="spin" color="#333" height={50} width={50} />
+            <ReactLoading type="spin" color="#FF6B6B" height={50} width={50} />
           </SpinnerContainer>
         )}
 
-        {/* Error message display */}
-        {error && (
-          <ErrorMessage>{error}</ErrorMessage>
-        )}
+        {error && <ErrorMessage>{error}</ErrorMessage>}
 
-        {/* Horizontal scrollable container for Restaurants and Shops */}
         <PlacesContainer>
-         <PlacesList>
-  {places.length > 0 ? (
-    places.map((place) => {
-      return (
-        <PlaceCard key={place.id}>
-          <LinkToMenu
-            to={{
-              pathname: place.type === 'shop' ? `/shopmenu/${place.id}` : `/menu/${place.id}`,
-              search: `?user_id=${user_id || 'default_user_id'}&username=${username || 'Guest'}`, // Pass default values if undefined
-            }}
-          >
-            <PlaceName>{place.name} - {place.type || 'Shop'}</PlaceName>
-            <PlaceDiscription>- {place.description}</PlaceDiscription>
-            <PlaceAddress>- {place.address}</PlaceAddress>
-            {place.distance && (
-              <PlaceDistance>
-                {parseFloat(place.distance).toFixed(3)} km away
-              </PlaceDistance>
-            )}
-          </LinkToMenu>
-        </PlaceCard>
-      );
-    })
-  ) : (
-    !loading && !error && (
-      <NoPlacesText>
-        No {type}s found in your area.
-      </NoPlacesText>
-    )
-  )}
-</PlacesList>
-
+          {places.length > 0 ? (
+            places.map((place) => (
+              <PlaceCard key={place.id}>
+                <LinkToMenu
+                  to={{
+                    pathname: place.type === 'shop' ? `/shopmenu/${place.id}` : `/menu/${place.id}`,
+                    search: `?user_id=${user_id || 'default_user_id'}&username=${username || 'Guest'}`,
+                  }}
+                >
+                  {/* Use the image URL from the database */}
+                  <PlaceImage
+                    src={place.path ? `${config.imageBaseUrl}/${place.path}` : `${config.imageBaseUrl}/default.jpg`}
+                    alt={place.name}
+                  />
+                  <PlaceName>{place.name}</PlaceName>
+                  <PlaceDescription>{place.description}</PlaceDescription>
+                  <PlaceAddress>{place.address}</PlaceAddress>
+                  {place.distance && (
+                    <PlaceDistance>{parseFloat(place.distance).toFixed(2)} km away</PlaceDistance>
+                  )}
+                </LinkToMenu>
+              </PlaceCard>
+            ))
+          ) : (
+            !loading && !error && <NoPlacesText>No {type}s found in your area.</NoPlacesText>
+          )}
         </PlacesContainer>
-
       </Container>
-      
       <Footer />
     </>
   );
@@ -220,44 +177,45 @@ const List = () => {
 
 export default List;
 
-// Styled components
+// Styled Components (unchanged)
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  font-family: 'Arial', sans-serif;
+  align-items: center;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  margin-top: 60px;
 `;
 
 const Title = styled.h1`
-  text-align: center;
+  font-size: 2.5rem;
   color: #333;
-  font-size: 2rem;
-  padding: 50px;
+  margin-bottom: 20px;
+  text-align: center;
 `;
 
-// Styled Cart Button
 const CartButton = styled.button`
-  display: block;
-  margin: 0 auto 20px;
-  padding: 10px 20px;
-  background-color: #333;
+  background-color: #ff6b6b;
   color: white;
-  font-size: 1rem;
   border: none;
+  padding: 10px 20px;
   border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+
   &:hover {
-    background-color: #555;
+    background-color: #ff4757;
   }
 `;
 
 const FilterContainer = styled.div`
-  margin-bottom: 20px;
   display: flex;
-  justify-content: center;
   gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
 `;
 
 const Label = styled.label`
@@ -269,7 +227,8 @@ const Select = styled.select`
   padding: 8px;
   font-size: 1rem;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 5px;
+  background-color: white;
 `;
 
 const SpinnerContainer = styled.div`
@@ -279,60 +238,66 @@ const SpinnerContainer = styled.div`
 `;
 
 const ErrorMessage = styled.div`
-  color: red;
+  color: #ff6b6b;
   text-align: center;
   margin: 20px 0;
 `;
 
 const PlacesContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-  padding: 10px;
-`;
-
-const PlacesList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0;
-  list-style: none;
-  min-width: 280px;
-`;
-
-const PlaceCard = styled.li`
-  background-color: #fff;
-  border: 1px solid #ddd;
+  width: 100%;
+  max-width: 1200px;
   padding: 20px;
+`;
+
+const PlaceCard = styled.div`
+  background-color: white;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
 `;
 
 const LinkToMenu = styled(Link)`
   text-decoration: none;
-  color: #333;
+  color: inherit;
+`;
+
+const PlaceImage = styled.img`
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
 `;
 
 const PlaceName = styled.h2`
-  font-size: 1.5rem;
-  margin-bottom: 5px;
+  font-size: 1.25rem;
+  margin: 10px;
+  color: #333;
 `;
 
-const PlaceDiscription = styled.p`
+const PlaceDescription = styled.p`
   font-size: 0.9rem;
   color: #666;
-  margin: 5px 0;
+  margin: 0 10px 10px;
 `;
 
 const PlaceAddress = styled.p`
   font-size: 0.9rem;
   color: #777;
-  margin: 5px 0;
+  margin: 0 10px 10px;
 `;
 
 const PlaceDistance = styled.span`
   font-size: 0.8rem;
   color: #888;
+  margin: 0 10px 10px;
+  display: block;
 `;
 
 const NoPlacesText = styled.p`

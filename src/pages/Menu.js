@@ -9,12 +9,17 @@ import { useSearchParams } from 'react-router-dom';
 import { UserContext } from '../components/Usercontext'; // Import the context
 import config from '../config'; // Import the configuration file
 
+// Import Swiper.js
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
+
 // Menu component for displaying menu items
 const Menu = () => {
   const { setUser } = useContext(UserContext); // Get the setUser function from context
   const [searchParams] = useSearchParams();
   const user_id = searchParams.get('user_id');
-  console.log('userId:', user_id);
 
   const { id: restaurantId } = useParams(); // Get the restaurant ID from the URL
   const [menuItems, setMenuItems] = useState([]);
@@ -28,9 +33,8 @@ const Menu = () => {
       menu_item_id: menuItemId,
       quantity: quantity,
     };
-    console.log('Sending to PHP:', cartItem);  // Debug log
 
-    axios.post('http://localhost:5000/add_to_cart', cartItem)
+    axios.post(`${config.backendUrl}/add_to_cart`, cartItem)
       .then(response => {
         if (response.data.status === 'success') {
           toast.success(response.data.message || 'Item added to cart!');
@@ -55,6 +59,7 @@ const Menu = () => {
       toast.error('Invalid quantity');
     }
   };
+
   useEffect(() => {
     setUser({ user_id });
   }, [user_id, setUser]);
@@ -66,6 +71,7 @@ const Menu = () => {
         const response = await axios.get(
           `${config.backendUrl}/get_menu?restaurant_id=${restaurantId}`
         );
+        console.log(response.data); // Log the data to check the structure
         if (response.status === 200 && response.data.length > 0) {
           setMenuItems(response.data);
         } else {
@@ -79,6 +85,7 @@ const Menu = () => {
         setLoading(false);  // Stop loading
       }
     };
+    
 
     fetchMenu();
   }, [restaurantId]);  // Only run when restaurantId changes
@@ -96,6 +103,29 @@ const Menu = () => {
               {menuItems.length > 0 ? (
                 menuItems.map(item => (
                   <div key={item.id} style={styles.menuItemCard}>
+                    {/* Image Slider */}
+                    {item.image_paths && item.image_paths.length > 0 ? (
+  <Swiper
+    navigation={true}
+    modules={[Navigation]}
+    spaceBetween={10}
+    slidesPerView={1}
+    style={styles.swiperContainer}
+  >
+    {item.image_paths.map((image, index) => (
+      <SwiperSlide key={index}>
+        <img
+          src={image}
+          alt={item.name}
+          style={styles.menuImage}
+        />
+      </SwiperSlide>
+    ))}
+  </Swiper>
+) : (
+  <p>No Image Available</p>  // Fallback message when there are no images
+)}
+
                     <h2>{item.name}</h2>
                     <p>{item.description}</p>
                     <p><strong>Price:</strong> ${item.price.toFixed(2)}</p>
@@ -115,7 +145,7 @@ const Menu = () => {
       </div>
     </>
   );
-};  
+};
 
 const styles = {
   appContainer: {
@@ -144,6 +174,17 @@ const styles = {
     boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
     textAlign: 'left',
   },
+  swiperContainer: {
+    width: '100%',
+    height: '200px',
+    borderRadius: '10px',
+  },
+  menuImage: {
+    width: '100%', // Make the image responsive
+    height: '200px', // Set fixed height
+    objectFit: 'cover', // Crop image if necessary
+    borderRadius: '10px', // Match card styling
+  },
   addButton: {
     marginTop: '10px',
     padding: '10px 20px',
@@ -154,6 +195,5 @@ const styles = {
     cursor: 'pointer',
   },
 };
-
 
 export default Menu;

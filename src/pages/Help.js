@@ -4,6 +4,7 @@ import './help.css'; // Import custom styles for the Help page
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import config from '../config';
 
 // Custom Next Arrow Component
 const NextArrow = ({ onClick }) => (
@@ -24,23 +25,23 @@ function Help() {
   // Sample images and descriptions for the app tutorial
   const images = [
     {
-      src: 'http://localhost/food_ordering_api/uploads/img_672cc9f5000887.27133820.jpg',
+      src: `${config.imageBaseUrl}/uploads/img_672cc9f5000887.27133820.jpg`,
       description: 'Step 1: Sign up or log in to your account to get started.',
     },
     {
-      src: 'http://localhost/food_ordering_api/uploads/img_672cc9f5000887.27133820.jpg',
+      src: `${config.imageBaseUrl}/uploads/img_672cc9f5000887.27133820.jpg`,
       description: 'Step 2: Browse through available restaurants and shops using the navigation bar.',
     },
     {
-      src: 'http://localhost/food_ordering_api/uploads/img_672cd8372d6486.57461626.jpg',
+      src: `${config.imageBaseUrl}/uploads/img_672cd8372d6486.57461626.jpg`,
       description: 'Step 3: Add items to your cart by selecting them from the available categories.',
     },
     {
-      src: 'http://localhost/food_ordering_api/uploads/img_672cd8372d6486.57461626.jpg',
+      src: `${config.imageBaseUrl}/uploads/img_672cd8372d6486.57461626.jpg`,
       description: 'Step 4: Proceed to checkout after adding items to your cart, and enter your delivery details.',
     },
     {
-      src: 'http://localhost/food_ordering_api/uploads/img_672cd8372d6486.57461626.jpg',
+      src: `${config.imageBaseUrl}/uploads/img_672cd8372d6486.57461626.jpg`,
       description: 'Step 5: Track your order in real-time and receive notifications when it’s on the way!',
     },
   ];

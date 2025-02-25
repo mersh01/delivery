@@ -1,5 +1,5 @@
-// config.js
-export default {
-  backendUrl: 'http://localhost/food_ordering_api', // Base URL for API requests
+const config = {
+  backendUrl: 'https://mydeliverys-7.onrender.com',
   imageBaseUrl: 'http://localhost/food_ordering_api', // Base URL for images
 };
+export default config;

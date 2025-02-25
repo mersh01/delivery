@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import './placedorder.css';
-import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Navbars from '../components/Navbars';
 import Footer from '../components/Footer';
 import { UserContext } from '../components/Usercontext';
@@ -39,29 +38,55 @@ const Placedorder = () => {
       }
     } catch (err) {
       console.error('Error:', err);
-      setError('Failed to load orders');
+      setError('Failed to load orders. Please try again later.');
     } finally {
       setLoading(false);
     }
   }, [user_id]);
 
+  // Set user context when component mounts
   useEffect(() => {
     setUser({ user_id, username });
   }, [user_id, username, setUser]);
 
   // Fetch orders when component mounts or when user_id changes
   useEffect(() => {
-    console.log('User ID before API call:', user_id);
-    fetchUserOrders();
+    if (user_id) {
+      console.log('User ID before API call:', user_id);
+      fetchUserOrders();
+    } else {
+      setError('User ID is missing. Please log in again.');
+      setLoading(false);
+    }
   }, [fetchUserOrders, user_id]);
 
   // Function to calculate time gap in seconds (for sorting)
   const calculateTimeGapInSeconds = (createdAt) => {
-    const orderTime = new Date(createdAt);
-    const now = new Date();
-    const difference = now - orderTime; // Difference in milliseconds
+    const orderTime = new Date(createdAt); // Parse the UTC timestamp
+    const now = new Date(); // Current time in the client's local timezone
 
+    // Convert both times to UTC
+    const orderTimeUTC = Date.UTC(
+      orderTime.getUTCFullYear(),
+      orderTime.getUTCMonth(),
+      orderTime.getUTCDate(),
+      orderTime.getUTCHours(),
+      orderTime.getUTCMinutes(),
+      orderTime.getUTCSeconds()
+    );
+
+    const nowUTC = Date.UTC(
+      now.getUTCFullYear(),
+      now.getUTCMonth(),
+      now.getUTCDate(),
+      now.getUTCHours(),
+      now.getUTCMinutes(),
+      now.getUTCSeconds()
+    );
+
+    const difference = nowUTC - orderTimeUTC; // Difference in milliseconds
     const seconds = Math.floor(difference / 1000); // Convert to seconds
+
     return seconds;
   };
 
@@ -87,10 +112,22 @@ const Placedorder = () => {
     navigate('/cart', { state: { user_id, username } });
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>{error}</div>;
-  if (orders.length === 0) return <div>You have not ordered yet.</div>;
+  // Render loading state
+  if (loading) {
+    return <div className="loading">Loading your orders...</div>;
+  }
 
+  // Render error state
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
+
+  // Render empty state
+  if (orders.length === 0) {
+    return <div className="empty">You have not placed any orders yet.</div>;
+  }
+
+  // Render orders list
   return (
     <>
       <Navbars />

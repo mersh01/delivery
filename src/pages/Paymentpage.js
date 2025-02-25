@@ -58,7 +58,7 @@ const PaymentPage = () => {
   useEffect(() => {
     const handlePaymentSuccess = async (paymentReference) => {
       try {
-        const response = await axios.post('http://localhost:5000/payment_callback', {
+        const response = await axios.post(`${config.backendUrl}/payment_callback`, {
           payment_reference: paymentReference,
           order_id: order_id,
         });
