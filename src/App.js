@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -23,7 +23,12 @@ function App() {
 
   return (
     <UserProvider>
-      <Router>
+      <Router
+        future={{
+          v7_startTransition: true, // Opt into startTransition behavior
+          v7_relativeSplatPath: true, // Opt into new relative splat path behavior
+        }}
+      >
         <Navbars /> {/* Render Navbars outside Routes for global access */}
         <Routes>
           <Route path="/" element={<Home />} />
