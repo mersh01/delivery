@@ -10,6 +10,8 @@ import { UserContext } from '../components/Usercontext';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import config from '../config'; // Import the configuration file
+
 
 // Fix for default marker icons in Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -117,7 +119,7 @@ const Checkout = () => {
   // Function to calculate delivery fee dynamically
   const calculateDeliveryFee = async (lat, lng) => {
     try {
-      const response = await axios.post('http://localhost:5000/update_locations', {
+      const response = await axios.post(`${config.backendUrl}/update_locations`, {
         user_id: user_id,
         latitude: lat,
         longitude: lng,
@@ -220,12 +222,12 @@ const Checkout = () => {
     const confirmationCode = generateRandomCode();
 
     try {
-      const cartResponse = await axios.get(`http://localhost:5000/get_cartss?user_id=${user_id}`);
+      const cartResponse = await axios.get(`${config.backendUrl}/get_cartss?user_id=${user_id}`);
 
       if (cartResponse.status === 200 && cartResponse.data.success) {
         const formattedCartItems = formatCartItems(cartResponse.data.items);
 
-        const response = await axios.post('http://localhost:5000/place-order', {
+        const response = await axios.post(`${config.backendUrl}/place-order`, {
           user_id: user_id,
           location: coordinates, // Send latitude and longitude as a string
           confirmation_code: confirmationCode,
@@ -233,7 +235,7 @@ const Checkout = () => {
         });
 
         if (response.status === 200) {
-          const clearCartResponse = await axios.post('http://localhost:5000/clear_cart', { user_id: user_id });
+          const clearCartResponse = await axios.post(`${config.backendUrl}/clear_cart`, { user_id: user_id });
 
           if (clearCartResponse.status === 200) {
             navigate('/placedorder', { state: { user_id } });

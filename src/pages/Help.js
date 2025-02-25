@@ -4,6 +4,7 @@ import './help.css'; // Import custom styles for the Help page
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+
 // Custom Next Arrow Component
 const NextArrow = ({ onClick }) => (
   <div className="arrow next-arrow" onClick={onClick}>

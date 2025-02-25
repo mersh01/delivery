@@ -5,14 +5,15 @@ import Navbars from '../components/Navbars';
 import Footer from '../components/Footer';
 import ReactLoading from 'react-loading'; // Import for loading spinner
 import { UserContext } from '../components/Usercontext'; // Import the context
+import config from '../config'; // Import the configuration file
 
 // Helper function to fetch restaurants or shops
 const fetchData = async (latitude, longitude, category = '', type = 'restaurant') => {
-  let url = `http://localhost:5000/restaurants?latitude=${latitude}&longitude=${longitude}`;
+  let url = `${config.backendUrl}/restaurants?latitude=${latitude}&longitude=${longitude}`;
   console.log("Fetching data for type:", type);
 
   if (type === 'shop') {
-    url = `http://localhost:5000/shops?user_lat=${latitude}&user_lng=${longitude}&category=${category}`;
+    url = `${config.backendUrl}/shops?user_lat=${latitude}&user_lng=${longitude}&category=${category}`;
   }
 
 

@@ -4,6 +4,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Footer from '../components/Footer';
 import Navbars from '../components/Navbars';
+import config from '../config'; // Import the configuration file
 
 const PaymentPageContainer = styled.div`
   padding: 100px;
@@ -30,7 +31,7 @@ const PaymentPage = () => {
     // Make an API call to create a payment session on your backend
     const createPaymentSession = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/create_payment_session', {
+        const response = await axios.post(`${config.backendUrl}/create_payment_session`, {
           user_id: user_id,
           amount: totalPrice, // Total amount the user needs to pay
         });

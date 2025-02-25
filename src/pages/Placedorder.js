@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import Navbars from '../components/Navbars';
 import Footer from '../components/Footer';
 import { UserContext } from '../components/Usercontext';
+import config from '../config'; // Import the configuration file
 
 const Placedorder = () => {
   const { setUser } = useContext(UserContext);
@@ -20,7 +21,7 @@ const Placedorder = () => {
   const fetchUserOrders = useCallback(async () => {
     try {
       console.log('Sending user_id:', user_id);
-      const response = await fetch(`http://localhost:5000/get_order_items?user_id=${user_id}`);
+      const response = await fetch(`${config.backendUrl}/get_order_items?user_id=${user_id}`);
       const data = await response.json(); // Parse the JSON response
       console.log('API Response:', data);
 

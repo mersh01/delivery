@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import Navbars from '../components/Navbars';
 import Footer from '../components/Footer';
 import { UserContext } from '../components/Usercontext'; // Import the context
+import config from '../config'; // Import the configuration file
 
 const RestaurantItemList = ({ restaurantItems, removeItem }) => (
   <div className="restaurant-cart-section">
@@ -77,7 +78,7 @@ const Cart = () => {
   // Fetch cart items from the API
   const fetchCartItems = useCallback(async () => {
     try {
-      const response = await fetch(`http://localhost:5000/get_cart?user_id=${user_id}`);
+      const response = await fetch(`${config.backendUrl}/get_cart?user_id=${user_id}`);
       const jsonData = await response.json();
 
       if (jsonData.success) {
@@ -154,7 +155,7 @@ const Cart = () => {
 
   const removeItem = async (type, itemId, itemName) => {
     try {
-      const response = await fetch('http://localhost:5000/remove_item', {
+      const response = await fetch(`${config.backendUrl}/remove_item`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // Ensure you're sending JSON

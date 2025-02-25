@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import config from '../config'; // Import the configuration file
 
 const Registration = () => {
   const [fullname, setFullname] = useState('');
@@ -65,7 +66,7 @@ const Registration = () => {
     formData.append('id_picture', idPicture);
 
     try {
-      const response = await axios.post('http://localhost:5000/registration', formData, {
+      const response = await axios.post(`${config.backendUrl}/registration`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

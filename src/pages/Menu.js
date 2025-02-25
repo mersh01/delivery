@@ -7,6 +7,7 @@ import Navbars from '../components/Navbars';
 import Footer from '../components/Footer';
 import { useSearchParams } from 'react-router-dom';
 import { UserContext } from '../components/Usercontext'; // Import the context
+import config from '../config'; // Import the configuration file
 
 // Menu component for displaying menu items
 const Menu = () => {
@@ -63,7 +64,7 @@ const Menu = () => {
       try {
         setLoading(true); // Start loading when fetching starts
         const response = await axios.get(
-          `http://localhost:5000/get_menu?restaurant_id=${restaurantId}`
+          `${config.backendUrl}/get_menu?restaurant_id=${restaurantId}`
         );
         if (response.status === 200 && response.data.length > 0) {
           setMenuItems(response.data);

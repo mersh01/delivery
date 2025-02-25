@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import config from '../config'; // Import the configuration file
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -14,7 +15,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/login', {
+      const response = await axios.post(`${config.backendUrl}/login`, {
         username,
         password,
       }, {

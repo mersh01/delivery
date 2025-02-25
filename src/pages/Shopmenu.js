@@ -7,6 +7,7 @@ import Navbars from '../components/Navbars';
 import Footer from '../components/Footer';
 import { useSearchParams } from 'react-router-dom';
 import { UserContext } from '../components/Usercontext'; // Import the context
+import config from '../config'; // Import the configuration file
 
 const Shopmenu = () => {
   const { setUser } = useContext(UserContext); // Get the setUser function from context
@@ -28,7 +29,7 @@ const Shopmenu = () => {
     };
     console.log('Sending to PHP:', cartItem);  // Debug log
 
-    axios.post('http://localhost:5000/shop_add_to_cart', cartItem)
+    axios.post(`${config.backendUrl}/shop_add_to_cart`, cartItem)
       .then(response => {
         if (response.data.status === 'success') {
           toast.success(response.data.message || 'Item added to cart!');
@@ -65,7 +66,7 @@ const Shopmenu = () => {
       try {
         setLoading(true); // Start loading when fetching starts
         const response = await axios.get(
-          `http://localhost:5000/get_items_by_shop?shopId=${shopId}`
+          `${config.backendUrl}/get_items_by_shop?shopId=${shopId}`
         );
 
         console.log('API Response:', response.data);
