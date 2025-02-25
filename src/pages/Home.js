@@ -5,7 +5,6 @@ import Testimonials from '../components/Testimonials';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
 import Navbar from '../components/Navbar';
-import { Link } from 'react-router-dom';
 
 function Home() {
   return (
