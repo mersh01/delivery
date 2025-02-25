@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FaShoppingCart, FaClipboardCheck } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';  // Correct usage of 'useNavigate'
 import axios from 'axios';
+import config from '../config';
 
 function Navbar() {
   const [showLogin, setShowLogin] = useState(false);
@@ -19,7 +20,7 @@ function Navbar() {
 
     try {
       // Send request to the PHP backend for login authentication
-      const response = await axios.post('http://localhost:5000/login', {
+      const response = await axios.post(`${config.backendUrl}/login`, {
         username,
         password,
       }, {
