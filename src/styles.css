@@ -1,157 +1,155 @@
 /* Global Styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f7fc;
-    color: #333;
-  }
-  
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  h1, h2, h3 {
-    font-weight: 700;
-    color: #2e3a59;
-  }
-  
- /* Header and Navigation */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f7fc;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  color: #2e3a59;
+}
+
+/* Header and Navigation */
 nav {
-  position: fixed;
-  top: 0;
-  
-  width: 100%;
-  background-color: #333; /* Adjust the background color as per your design */
-  z-index: 1000; /* Ensure the navbar is above other content */
-  padding: 10px 20px; /* Adjust padding as needed */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: for some subtle shadow */
+position: fixed;
+top: 0;
+width: 100%;
+background-color: #333; /* Adjust the background color as per your design */
+z-index: 1000; /* Ensure the navbar is above other content */
+padding: 10px 20px; /* Adjust padding as needed */
+box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Optional: for some subtle shadow */
 }
 
 /* Navbar List */
 nav ul {
-  list-style-type: none;
-  display: flex;
-  justify-content: space-between; /* Ensures text links are on the left and icons on the right */
-  align-items: center; /* Vertically center-align items */
-  margin: 0;
-  padding: 0;
+list-style-type: none;
+display: flex;
+justify-content: space-between; /* Ensures text links are on the left and icons on the right */
+align-items: center; /* Vertically center-align items */
+margin: 0;
+padding: 0;
 }
 
 /* Left-side links */
 nav ul.left-links {
-  display: flex;
-  align-items: center; /* Ensures the links are vertically centered */
+display: flex;
+align-items: center; /* Ensures the links are vertically centered */
 }
 
 /* Right-side icons */
 nav ul.right-icons {
-  display: flex;
-  align-items: center;
+display: flex;
+align-items: center;
 }
 
 /* Individual list items */
 nav ul li {
-  margin: 0 15px;
+margin: 0 15px;
 }
 
 /* Link styling */
 nav ul li a {
-  text-decoration: none;
-  color: white;
-  font-size: 18px;
-  transition: color 0.3s;
+text-decoration: none;
+color: white;
+font-size: 18px;
+transition: color 0.3s;
 }
 
 /* Hover effect for links */
 nav ul li a:hover {
-  color: #ff7f50;
+color: #ff7f50;
 }
 
 /* Icon styling */
 .navbar-icons li {
-  font-size: 24px;
-  cursor: pointer;
-  color:#f4f7fc;
-  transition: color 0.3s;
+font-size: 24px;
+cursor: pointer;
+color:#f4f7fc;
+transition: color 0.3s;
 }
 
-  
-  /* Hero Section */
-  .hero {
-    background: linear-gradient(45deg, #ff7f50, #ff6347);
-    color: white;
-    padding: 10px 0;
-    text-align: center;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .hero h1 {
-    font-size: 3em;
-  }
-  
-  .hero p {
-    font-size: 1.2em;
-    margin-top: 10px;
-  }
-  .home {
-    padding-top: 70px; /* Adjust based on your navbar height */
-  }
- 
-  
-  button {
-    background-color: #ff7f50;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #ff6347;
-  }
-  
-  /* Footer */
-  footer {
-    position: fixed;
-    background-color: #1f2a44;
-    color: white;
-    padding: 20px;
-    text-align: center;
-    margin-top: 30px;
-    border-radius: 5px;
-    width: 100%;
-    bottom: 0;
 
-  }
-  
-  /* Features Section */
-  .features {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-bottom: 30px;
-  }
-  
-  .feature-card {
-    background-color: white;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    transition: transform 0.3s;
-  }
-  
-  .feature-card:hover {
-    transform: translateY(-10px);
-  }
- 
+/* Hero Section */
+.hero {
+  background: linear-gradient(45deg, #ff7f50, #ff6347);
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-size: 3em;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+.home {
+  padding-top: 70px; /* Adjust based on your navbar height */
+}
+
+
+button {
+  background-color: #ff7f50;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #ff6347;
+}
+
+/* Footer */
+footer {
+  position: fixed;
+  background-color: #1f2a44;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  margin-top: 30px;
+  border-radius: 5px;
+  width: 100%;
+  bottom: 0;
+
+}
+
+/* Features Section */
+.features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.feature-card {
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
