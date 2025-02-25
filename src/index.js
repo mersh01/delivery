@@ -1,18 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './Home'; // Your home page component
-import Navbar from './Navbar'; // Your navbar component
+import ReactDOM from 'react-dom/client';
+import './styles.css'; // Import the global styles
+import App from './App';
 
-function App() {
-  return (
-    <BrowserRouter basename="/delivery">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* Add other routes if needed */}
-      </Routes>
-    </BrowserRouter>
-  );
-}
-
-export default App;
+const root = ReactDOM.createRoot(document.getElementById('root')); // Creating root
+root.render(
+  <React.StrictMode>
+    <App /> {/* No BrowserRouter here */}
+  </React.StrictMode>
+);
