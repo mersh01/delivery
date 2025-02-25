@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -23,24 +23,30 @@ function App() {
 
   return (
     <UserProvider>
-    <Router basename="/delivery"> {/* Add basename here */}
-  <Navbars />
-  <Routes>
-    <Route path="/" element={<Home />} />
-    <Route path="/about" element={<About />} />
-    <Route path="/contact" element={<Contact />} />
-    <Route path="/help" element={<Help />} />
-    <Route path="/list" element={<List />} />
-    <Route path="/login" element={<Login />} />
-    <Route path="/registration" element={<Registration />} />
-    <Route path="/menu/:id" element={<Menu cart={cart} setCart={setCart} />} />
-    <Route path="/shopmenu/:id" element={<Shopmenu />} />
-    <Route path="/cart" element={<Cart cart={cart} setCart={setCart} />} />
-    <Route path="/checkout" element={<Checkout />} />
-    <Route path="/placedorder" element={<Placedorder />} />
-    <Route path="/paymentpage" element={<PaymentPage />} />
-  </Routes>
-</Router>
+      <Router>
+        <Navbars /> {/* Render Navbars outside Routes for global access */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/list" element={<List />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route
+            path="/menu/:id"
+            element={<Menu cart={cart} setCart={setCart} />}
+          />
+          <Route path="/shopmenu/:id" element={<Shopmenu />} />
+          <Route
+            path="/cart"
+            element={<Cart cart={cart} setCart={setCart} />}
+          />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/placedorder" element={<Placedorder />} />
+          <Route path="/paymentpage" element={<PaymentPage />} />
+        </Routes>
+      </Router>
     </UserProvider>
   );
 }
