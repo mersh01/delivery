@@ -66,7 +66,7 @@ const Shopmenu = () => {
 
   // Navigate to cart
   const handleGoToCart = () => {
-    navigate(`/cart`, { state: { user_id: user.user_id } });
+    navigate(`/cart`, { state: { user_id: setUser.user_id } });
   };
 
   // Set user context
