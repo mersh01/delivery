@@ -114,24 +114,26 @@ const List = () => {
         <CartButton onClick={goToCart}>🛒 View Cart</CartButton>
 
         <FilterContainer>
-          <Label htmlFor="type">Type: </Label>
-          <Select id="type" value={type} onChange={handleTypeChange}>
-            <option value="restaurant">Restaurant</option>
-            <option value="shop">Shop</option>
-          </Select>
+  <FilterSection>
+    <Label htmlFor="type">Type: </Label>
+    <Select id="type" value={type} onChange={handleTypeChange}>
+      <option value="restaurant">Restaurant</option>
+      <option value="shop">Shop</option>
+    </Select>
+  </FilterSection>
 
-          {type === 'shop' && (
-            <>
-              <Label htmlFor="category">Category: </Label>
-              <Select id="category" value={category} onChange={handleCategoryChange}>
-                <option value="1">Clothing</option>
-                <option value="2">Shoes</option>
-                <option value="3">Electronics</option>
-                <option value="4">All Categories</option>
-              </Select>
-            </>
-          )}
-        </FilterContainer>
+  {type === 'shop' && (
+    <CategorySection>
+      <Label htmlFor="category">Category: </Label>
+      <Select id="category" value={category} onChange={handleCategoryChange}>
+        <option value="1">Clothing</option>
+        <option value="2">Shoes</option>
+        <option value="3">Electronics</option>
+        <option value="4">All Categories</option>
+      </Select>
+    </CategorySection>
+  )}
+</FilterContainer>
 
         {loading && (
           <SpinnerContainer>
@@ -151,7 +153,6 @@ const List = () => {
                     search: `?user_id=${user_id || 'default_user_id'}&username=${username || 'Guest'}`,
                   }}
                 >
-                  {/* Use the image URL from the database */}
                   <PlaceImage
                     src={place.path ? `${config.imageBaseUrl}/${place.path}` : `${config.imageBaseUrl}/default.jpg`}
                     alt={place.name}
@@ -177,7 +178,7 @@ const List = () => {
 
 export default List;
 
-// Styled Components (unchanged)
+// Styled Components (with responsiveness)
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -193,6 +194,10 @@ const Title = styled.h1`
   color: #333;
   margin-bottom: 20px;
   text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 const CartButton = styled.button`
@@ -209,6 +214,10 @@ const CartButton = styled.button`
   &:hover {
     background-color: #ff4757;
   }
+
+  @media (max-width: 768px) {
+    padding: 8px 16px;
+  }
 `;
 
 const FilterContainer = styled.div`
@@ -216,6 +225,7 @@ const FilterContainer = styled.div`
   gap: 10px;
   margin-bottom: 20px;
   align-items: center;
+  flex-wrap: wrap;
 `;
 
 const Label = styled.label`
@@ -229,6 +239,18 @@ const Select = styled.select`
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: white;
+`;
+
+const FilterSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
+
+const CategorySection = styled.div`
+   display: flex;
+  align-items: center;
+  gap: 10px;
 `;
 
 const SpinnerContainer = styled.div`
@@ -250,6 +272,14 @@ const PlacesContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   padding: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const PlaceCard = styled.div`
@@ -273,18 +303,31 @@ const PlaceImage = styled.img`
   width: 100%;
   height: 150px;
   object-fit: cover;
+  transition: transform 0.3s ease;
+
+  @media (max-width: 768px) {
+    height: 120px;
+  }
 `;
 
 const PlaceName = styled.h2`
   font-size: 1.25rem;
   margin: 10px;
   color: #333;
+
+  @media (max-width: 768px) {
+    font-size: 1.1rem;
+  }
 `;
 
 const PlaceDescription = styled.p`
   font-size: 0.9rem;
   color: #666;
   margin: 0 10px 10px;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const PlaceAddress = styled.p`

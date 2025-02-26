@@ -14,6 +14,14 @@ const AppDownloadSection = styled.div`
   text-align: center;
   max-width: 1000px;
   margin: auto;
+
+  @media (max-width: 768px) {
+    padding: 30px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 20px;
+  }
 `;
 
 const Heading = styled.h2`
@@ -22,6 +30,14 @@ const Heading = styled.h2`
   margin-bottom: 20px;
   color: #fff;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Description = styled.p`
@@ -30,6 +46,14 @@ const Description = styled.p`
   font-weight: 400;
   color: #e0e0e0;
   line-height: 1.5;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -37,6 +61,16 @@ const ButtonContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  @media (max-width: 480px) {
+    gap: 10px;
+  }
 `;
 
 const PlatformButton = styled.a`
@@ -49,7 +83,8 @@ const PlatformButton = styled.a`
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease;
-  width: 820px;
+  width: 100%;
+  max-width: 400px;
   text-align: center;
 
   &:hover {
@@ -62,6 +97,14 @@ const PlatformButton = styled.a`
     transform: translateY(0);
     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.1);
   }
+
+  @media (max-width: 768px) {
+    padding: 12px 25px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px 20px;
+  }
 `;
 
 const FeedbackSection = styled.div`
@@ -73,6 +116,16 @@ const FeedbackSection = styled.div`
   color: #333;
   width: 100%;
   max-width: 1000px;
+
+  @media (max-width: 768px) {
+    margin-top: 30px;
+    padding: 15px;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: 20px;
+    padding: 10px;
+  }
 `;
 
 const FeedbackHeading = styled.h3`
@@ -80,6 +133,14 @@ const FeedbackHeading = styled.h3`
   font-weight: 600;
   color: #333;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.3rem;
+  }
 `;
 
 const FeedbackForm = styled.form`

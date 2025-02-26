@@ -15,8 +15,19 @@ const Title = styled.h2`
   font-weight: 600;
   color: #2d3436;
   margin-bottom: 30px;
-  text-align: center;
   font-family: 'Arial', sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+`;
+
+const TestimonialWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
 `;
 
 const TestimonialCard = styled.div`
@@ -25,13 +36,17 @@ const TestimonialCard = styled.div`
   padding: 30px;
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
   width: 80%;
-  max-width: 900px;
-  margin-bottom: 30px;
+  max-width: 600px;
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(-10px);
     box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+    padding: 20px;
   }
 `;
 
@@ -40,6 +55,10 @@ const QuoteText = styled.p`
   font-style: italic;
   color: #636e72;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const UserName = styled.p`
@@ -52,20 +71,22 @@ const Testimonials = () => {
   return (
     <TestimonialsSection>
       <Title>What Our Users Say</Title>
-      <TestimonialCard>
-        <QuoteText>"This is the best delivery app ever! I love how easy it is to use."</QuoteText>
-        <UserName>- Sarah</UserName>
-      </TestimonialCard>
+      <TestimonialWrapper>
+        <TestimonialCard>
+          <QuoteText>"This is the best delivery app ever! I love how easy it is to use."</QuoteText>
+          <UserName>- Sarah</UserName>
+        </TestimonialCard>
 
-      <TestimonialCard>
-        <QuoteText>"The service is quick and reliable, and the app is super user-friendly!"</QuoteText>
-        <UserName>- John</UserName>
-      </TestimonialCard>
+        <TestimonialCard>
+          <QuoteText>"The service is quick and reliable, and the app is super user-friendly!"</QuoteText>
+          <UserName>- John</UserName>
+        </TestimonialCard>
 
-      <TestimonialCard>
-        <QuoteText>"I can order food with just a few taps! It has made my life so much easier."</QuoteText>
-        <UserName>- Emily</UserName>
-      </TestimonialCard>
+        <TestimonialCard>
+          <QuoteText>"I can order food with just a few taps! It has made my life so much easier."</QuoteText>
+          <UserName>- Emily</UserName>
+        </TestimonialCard>
+      </TestimonialWrapper>
     </TestimonialsSection>
   );
 };

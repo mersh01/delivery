@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import './cart.css';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -7,11 +7,12 @@ import axios from 'axios';
 import Footer from '../components/Footer';
 import Navbars from '../components/Navbars';
 import { UserContext } from '../components/Usercontext';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import config from '../config'; // Import the configuration file
-
+import { FaSearch } from 'react-icons/fa'; // Import search icon
+import { debounce } from 'lodash'; // Import debounce function
 
 // Fix for default marker icons in Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -81,6 +82,35 @@ const ModalContent = styled.div`
   position: relative;
 `;
 
+const SearchContainer = styled.div`
+  position: relative;
+  width: 100%;
+  margin-bottom: 20px;
+`;
+
+const SearchInput = styled.input`
+  width: 100%;
+  padding: 10px 40px 10px 10px; /* Add padding for the icon */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+`;
+
+const SearchIcon = styled(FaSearch)`
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  cursor: pointer;
+`;
+
+// Component to update the map view
+const UpdateMapView = ({ center }) => {
+  const map = useMap();
+  map.setView(center, map.getZoom());
+  return null;
+};
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -94,6 +124,7 @@ const Checkout = () => {
   const [isPlacingOrder, setIsPlacingOrder] = useState(false); // Loading state for placing order
   const [deliveryFee, setDeliveryFee] = useState(0.0); // Delivery fee
   const [showPaymentModal, setShowPaymentModal] = useState(false); // State to control the payment modal
+  const [searchQuery, setSearchQuery] = useState(''); // State for search input
 
   useEffect(() => {
     setUser({ user_id });
@@ -200,6 +231,37 @@ const Checkout = () => {
     }
   };
 
+  // Debounced search function
+  const debouncedSearch = useCallback(
+    debounce(async (query) => {
+      if (!query) return;
+
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`
+        );
+        const data = await response.json();
+        if (data.length > 0) {
+          const { lat, lon } = data[0];
+          await updateLocationAndFee(parseFloat(lat), parseFloat(lon)); // Update location and delivery fee
+        } else {
+          alert('No results found for the search query.');
+        }
+      } catch (error) {
+        console.error('Error searching for place:', error);
+        alert('Error searching for place.');
+      }
+    }, 500), // Debounce delay of 500ms
+    []
+  );
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    debouncedSearch(query); // Trigger debounced search
+  };
+
   // Handle payment method selection
   const handlePaymentMethod = async (method) => {
     setShowPaymentModal(false);
@@ -290,6 +352,15 @@ const Checkout = () => {
         <Title>Checkout</Title>
         <Card>
           <p>Select or Share your Location</p>
+          <SearchContainer>
+            <SearchInput
+              type="text"
+              placeholder="Search for a place..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+            />
+            <SearchIcon />
+          </SearchContainer>
           <div style={{ height: '400px', width: '100%' }}>
             <MapContainer
               center={[latitude, longitude]}
@@ -309,6 +380,7 @@ const Checkout = () => {
               >
                 <Popup>Your selected location</Popup>
               </Marker>
+              <UpdateMapView center={[latitude, longitude]} />
             </MapContainer>
           </div>
           <p>{`Address: ${address}`}</p>

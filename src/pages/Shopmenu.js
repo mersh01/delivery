@@ -7,7 +7,6 @@ import Navbars from '../components/Navbars';
 import Footer from '../components/Footer';
 import { UserContext } from '../components/Usercontext'; // Import the context
 import config from '../config'; // Import the configuration file
-// Import Swiper.js
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -179,14 +178,14 @@ const Shopmenu = () => {
 const styles = {
   container: {
     fontFamily: 'Arial, sans-serif',
-    padding: '20px',
+    padding: '80px 20px 20px', // Added padding to top to avoid overlap with fixed navbar
     backgroundColor: '#f9f9f9',
     textAlign: 'center',
     minHeight: '100vh',
   },
   Container: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', // Adjust column width for responsiveness
     gap: '20px',
     justifyContent: 'center',
     padding: '20px',
@@ -211,9 +210,6 @@ const styles = {
     borderRadius: '5px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
-    '&:hover': {
-      backgroundColor: '#4cae4c',
-    },
   },
   cartButtonContainer: {
     marginTop: '20px',
@@ -225,9 +221,6 @@ const styles = {
     color: '#fff',
     borderRadius: '5px',
     cursor: 'pointer',
-    '&:hover': {
-      backgroundColor: '#0056b3',
-    },
   },
   swiperContainer: {
     width: '100%',

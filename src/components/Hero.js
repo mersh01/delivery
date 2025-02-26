@@ -11,34 +11,54 @@ const HeroSection = styled.section`
   color: black;
   text-align: center;
   flex-direction: column;
+  padding: 20px;
 
   /* Background image styling */
-  background-image: url(${logo}); /* Use the imported logo */
-  background-size: contain; /* Make sure the whole logo is visible */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  background-position: 90%; /* Center the image in the background */
+  background-image: url(${() => logo});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    height: 50vh;
+    background-size: 50%;
+  }
+
+  @media (max-width: 480px) {
+    height: 40vh;
+    background-size: 40%;
+  }
 `;
 
-// The rest of your component remains the same
 const AndroidButton = styled.a`
-  margin-top: 1rem;
   padding: 1rem 2rem;
   background-color: #34b7f1;
   color: white;
   text-decoration: none;
   border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  transition: background 0.3s ease-in-out;
+
   &:hover {
     background-color: #0073e6;
   }
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.8rem;
+    padding: 0.6rem 1.2rem;
+  }
 `;
 
-const IosButton = styled.a`
-  margin-top: 1rem;
-  padding: 1rem 2rem;
+const IosButton = styled(AndroidButton)`
   background-color: #007aff;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
+
   &:hover {
     background-color: #4cd2fc;
   }
@@ -51,6 +71,13 @@ const ButtonsContainer = styled.div`
   padding: 10px;
   width: 80%;
   gap: 20px;
+  flex-wrap: wrap; /* Makes buttons wrap on small screens */
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 `;
 
 const Hero = () => {

@@ -63,11 +63,9 @@ const ShopItemList = ({ shopItems, removeItem }) => (
 
 
 const Cart = () => {
-  const { setUser } = useContext(UserContext); // Get the setUser function from context
+  const { setUser } = useContext(UserContext);
   const location = useLocation();
-  const { user_id, username } = location.state || {}; // Destructure user_id and username
-
-  console.log('cartuserId:', user_id);  // Verify the value of user_id
+  const { user_id, username } = location.state || {};
 
   const [restaurantItems, setRestaurantItems] = useState({});
   const [shopItems, setShopItems] = useState({});
@@ -142,7 +140,7 @@ const Cart = () => {
   }, [user_id]);
 
   useEffect(() => {
-    setUser({ user_id, });
+    setUser({ user_id });
   }, [user_id, setUser]);
 
   useEffect(() => {
@@ -158,7 +156,7 @@ const Cart = () => {
       const response = await fetch(`${config.backendUrl}/remove_item`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', // Ensure you're sending JSON
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           user_id: user_id.toString(),
@@ -166,7 +164,7 @@ const Cart = () => {
           type: type,
         }),
       });
-  
+
       const jsonResponse = await response.json();
       if (jsonResponse.success) {
         toast.success(`${itemName} removed from cart.`);
@@ -178,8 +176,6 @@ const Cart = () => {
       toast.error(`Error: ${e}`);
     }
   };
-  
-  
 
   if (loading) {
     return (
@@ -193,23 +189,22 @@ const Cart = () => {
   return (
     <>
       <Navbars />
-    <div className="cart-container">
-      <h1>Your Cart</h1>
-      {Object.keys(restaurantItems).length === 0 && Object.keys(shopItems).length === 0 ? (
-        <p>Your cart is empty</p>
-      ) : (
-        <>
-          <RestaurantItemList restaurantItems={restaurantItems} removeItem={removeItem} />
-          <ShopItemList shopItems={shopItems} removeItem={removeItem} />
-
-          <div className="total-price">
-            <p>Total Price: ${totalPrice.toFixed(2)}</p>
-            <button className="checkout-button" onClick={handleCheckout}>Proceed to Checkout</button>
-          </div>
-        </>
-      )}
-    </div>
-    <Footer />
+      <div className="cart-container">
+        <h1>Your Cart</h1>
+        {Object.keys(restaurantItems).length === 0 && Object.keys(shopItems).length === 0 ? (
+          <p>Your cart is empty</p>
+        ) : (
+          <>
+            <RestaurantItemList restaurantItems={restaurantItems} removeItem={removeItem} />
+            <ShopItemList shopItems={shopItems} removeItem={removeItem} />
+            <div className="total-price">
+              <p>Total Price: ${totalPrice.toFixed(2)}</p>
+              <button className="checkout-button" onClick={handleCheckout}>Proceed to Checkout</button>
+            </div>
+          </>
+        )}
+      </div>
+      <Footer />
     </>
   );
 };
