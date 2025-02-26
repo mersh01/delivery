@@ -76,6 +76,13 @@ button:hover {
   text-align: right;
 }
 
+.cart-container {
+  padding: 80px 20px 100px; /* Added extra bottom padding */
+  max-width: 800px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
 .checkout-button {
   padding: 10px 20px;
   background-color: #28a745;
@@ -86,6 +93,20 @@ button:hover {
   position: relative; /* Ensure it stays in place */
   z-index: 2; /* Keeps button above other elements */
 }
+
+/* Fix footer overlapping issue */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 -4px 2px -2px gray;
+  padding: 10px;
+  text-align: center;
+  z-index: 5; /* Ensure footer is above content */
+}
+
 
 .checkout-button:hover {
   background-color: #218838;
