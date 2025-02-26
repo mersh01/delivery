@@ -234,18 +234,16 @@ button:hover {
 }
 
 /* Footer */
-footer {
+.footer {
   position: fixed;
-  background-color: #1f2a44;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  margin-top: 30px;
-  border-radius: 5px;
-  width: 100%;
   bottom: 0;
-  z-index: 1000;
-
+  left: 0;
+  width: 100%;
+  background-color: #0e0e0e;
+  box-shadow: 0 -4px 2px -2px gray;
+  padding: 10px;
+  text-align: center;
+  z-index: 5; /* Ensure footer is above content */
 }
 
 /* Features Section */
