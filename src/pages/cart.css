@@ -1,6 +1,6 @@
 /* cart.css */
 .cart-container {
-  padding: 80px 20px ; /* Added padding at the top to make space for the navbar */
+  padding: 80px 20px 100px; /* Added extra bottom padding */
   max-width: 800px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
@@ -83,6 +83,8 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  position: relative; /* Ensure it stays in place */
+  z-index: 2; /* Keeps button above other elements */
 }
 
 .checkout-button:hover {
