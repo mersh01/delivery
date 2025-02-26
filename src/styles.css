@@ -238,10 +238,11 @@ button:hover {
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #fff;
+  background-color: #040404;
   box-shadow: 0 -4px 2px -2px gray;
   padding: 10px;
   text-align: center;
+  align-items:center;
   z-index: 5; /* Ensure footer is above content */
 }
 
