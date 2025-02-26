@@ -233,13 +233,12 @@ button:hover {
   background-color: #ff6347;
 }
 
-/* Footer */
 .footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #0e0e0e;
+  background-color: #fff;
   box-shadow: 0 -4px 2px -2px gray;
   padding: 10px;
   text-align: center;
