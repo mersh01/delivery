@@ -213,7 +213,7 @@ const styles = {
   },
   cartButtonContainer: {
     marginTop: '20px',
-    marginBotton: '40px',
+    padding : '40px 40px',
 
   },
   cartButton: {
