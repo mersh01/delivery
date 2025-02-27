@@ -50,60 +50,66 @@ function Help() {
     dots: true, // Show navigation dots
     infinite: true, // Infinite loop
     speed: 500,
-    slidesToShow: 3, // Default to show 3 images
+    slidesToShow: 3, // Default: 3 images
     slidesToScroll: 1, // Scroll one image at a time
     nextArrow: <NextArrow />, // Use custom next arrow
     prevArrow: <PrevArrow />, // Use custom previous arrow
     responsive: [
       {
-        breakpoint: 1024, // For medium screens (tablets)
+        breakpoint: 1024, // Tablets and small laptops
         settings: {
-          slidesToShow: 2, // Show 2 images at a time
+          slidesToShow: 2, // Show 2 images
+          slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 768, // For small screens (mobile)
+        breakpoint: 768, // Mobile screens
         settings: {
-          slidesToShow: 1, // Show 1 image at a time
+          slidesToShow: 1, // Show 1 image
+          slidesToScroll: 1,
         },
       },
     ],
   };
   
+  
   return (
-    
     <>
-    {/* Navbar rendered outside help-container */}
-    <Navbar />
-     
-    <div className="help-container">
-       
-      <h1>How to Use the App</h1>
-
-      {/* Image Carousel with descriptions */}
-      <div className="carousel-container">
-        <Slider {...settings}>
-          {images.map((image, index) => (
-            <div key={index} className="carousel-slide">
-              <img src={image.src} alt={`Step ${index + 1}`} className="carousel-image" />
-              <p className="carousel-description">{image.description}</p>
-            </div>
-          ))}
-        </Slider>
+      {/* Navbar rendered outside help-container */}
+      <Navbar />
+      
+      {/* Wrapper to prevent content from being hidden by navbar */}
+      <div className="help-wrapper">
+        <div className="help-container">
+          <h1>How to Use the App</h1>
+  
+          {/* Image Carousel with descriptions */}
+          <div className="carousel-container">
+            <Slider {...settings}>
+              {images.map((image, index) => (
+                <div key={index} className="carousel-slide">
+                  <img src={image.src} alt={`Step ${index + 1}`} className="carousel-image" />
+                  <p className="carousel-description">{image.description}</p>
+                </div>
+              ))}
+            </Slider>
+          </div>
+  
+          <div className="help-section">
+            <h2>Contact Us</h2>
+            <p>
+              If you need any assistance, you can reach out to our support team by 
+              visiting our <Link to="/contact">Contact Us</Link> page.
+            </p>
+          </div>
+        </div>
       </div>
-
-      <div className="help-section">
-        <h2>Contact Us</h2>
-        <p>
-          If you need any assistance, you can reach out to our support team by 
-          visiting our <Link to="/contact">Contact US</Link> page.
-        </p>
-      </div>
-    </div>
-     {/* Navbar rendered outside help-container */}
-     <Footer />
+  
+      {/* Footer rendered outside help-container */}
+      <Footer />
     </>
   );
+  
 }
 
 export default Help;

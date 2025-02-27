@@ -1,132 +1,102 @@
+/* Ensure the whole page has enough padding */
 .help-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 80px 5%;
+  padding: 100px 5% 60px; /* Added padding at the top to prevent navbar overlap */
   text-align: center;
 }
 
+/* Add space around the carousel */
 .carousel-container {
-  margin: 80px 0;
+  margin: 80px auto;
+  padding: 0 20px; /* Adds spacing from sides */
   position: relative;
 }
 
-.carousel-slide {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
+/* Make sure images do not touch the sides */
 .carousel-image {
-  width: 80%; /* Adjust to control image size */
+  width: 70%; /* Default width */
   height: auto;
+  max-height: 400px;
   border-radius: 8px;
 }
 
+/* Tablet adjustments */
+@media (max-width: 1024px) {
+  .carousel-image {
+    width: 80%; /* Slightly larger on tablets */
+    max-height: 350px;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .carousel-image {
+    width: 90%; /* Increase width for better visibility */
+    max-height: 300px;
+  }
+
+  /* Add more padding to prevent navbar from overlapping */
+  .help-container {
+    padding: 120px 8% 60px; 
+  }
+}
 .arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 10;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
   border-radius: 50%;
-  font-size: 24px;
+  font-size: 30px; /* Adjusted for better visibility */
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 40px;
-  height: 40px;
+  width: 60px; /* Adjust the width to be larger */
+  height: 60px; /* Adjust the height to be larger */
+  transition: background-color 0.3s ease;
+  opacity: 0; /* Initially hidden */
 }
 
+/* Position arrows inside the image */
 .next-arrow {
-  right: 10px; /* Adjusted position */
+  right: 10%; /* Position inside the right side of the image */
 }
 
 .prev-arrow {
-  left: 10px; /* Adjusted position */
+  left: 0px; /* Position inside the left side of the image */
 }
 
-.help-section {
-  margin-bottom: 40px;
-  margin-top: 100px;
+/* Make arrows visible when hovering over the carousel */
+.carousel-container:hover .arrow {
+  opacity: 1;
 }
 
-.carousel-description {
-  margin-top: 10px;
-  font-size: 16px;
-  color: #333;
-  text-align: center;
-}
-
-/* Make sure the Navbar is full width */
+/* Responsive Adjustments */
 @media (max-width: 1024px) {
-  .carousel-image {
-      width: 70%;
-  }
-
-  .arrow {
-      width: 35px;
-      height: 35px;
-      font-size: 20px;
-  }
-
   .next-arrow {
-      right: 20px; /* Adjusted for medium screens */
+    right: 10%;
   }
-
   .prev-arrow {
-      left: 20px; /* Adjusted for medium screens */
-  }
-
-  .carousel-description {
-      font-size: 14px;
+    left: 0px;
   }
 }
 
 @media (max-width: 768px) {
-  .carousel-container {
-      margin: 40px 0;
-  }
-
-  .carousel-image {
-      width: 100%; /* Full width on mobile */
-  }
-
   .arrow {
-      width: 30px;
-      height: 30px;
-      font-size: 18px;
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
   }
 
   .next-arrow {
-      right: 10px; /* Adjusted for small screens */
+    right: 10%;
   }
-
   .prev-arrow {
-      left: 10px; /* Adjusted for small screens */
-  }
-
-  .carousel-description {
-      font-size: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .carousel-image {
-      width: 100%; /* Full width on very small screens */
-  }
-
-  .arrow {
-      width: 25px;
-      height: 25px;
-      font-size: 16px;
-  }
-
-  .carousel-description {
-      font-size: 10px;
+    left: 0px;
   }
 }
