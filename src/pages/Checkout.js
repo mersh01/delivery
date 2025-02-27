@@ -23,7 +23,15 @@ L.Icon.Default.mergeOptions({
 });
 
 const CheckoutContainer = styled.div`
-  padding: 100px;
+  padding: 20px;
+
+  @media (min-width: 768px) {
+    padding: 50px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 100px;
+  }
 `;
 
 const Card = styled.div`
@@ -37,8 +45,12 @@ const Card = styled.div`
 
 const Title = styled.h1`
   color: #333;
-  font-size: 24px;
+  font-size: 20px;
   text-align: center;
+
+  @media (min-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 const Button = styled.button`
@@ -48,13 +60,17 @@ const Button = styled.button`
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   width: 100%;
   margin-top: 20px;
 
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 16px;
   }
 `;
 
@@ -64,21 +80,22 @@ const ModalOverlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999; /* High z-index to be above the map */
+  z-index: 9999;
 `;
 
 const ModalContent = styled.div`
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  width: 300px;
+  width: 90%;
+  max-width: 300px;
   text-align: center;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 10000; /* Ensure it's above everything */
+  z-index: 10000;
   position: relative;
 `;
 
@@ -90,10 +107,14 @@ const SearchContainer = styled.div`
 
 const SearchInput = styled.input`
   width: 100%;
-  padding: 10px 40px 10px 10px; /* Add padding for the icon */
+  padding: 10px 40px 10px 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 14px;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 const SearchIcon = styled(FaSearch)`
@@ -361,7 +382,7 @@ const Checkout = () => {
             />
             <SearchIcon />
           </SearchContainer>
-          <div style={{ height: '400px', width: '100%' }}>
+          <div style={{ height: '300px', width: '100%' }}>
             <MapContainer
               center={[latitude, longitude]}
               zoom={14}
