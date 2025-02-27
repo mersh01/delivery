@@ -235,7 +235,7 @@ button:hover {
 
 /* Ensure the footer is always at the bottom */
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
