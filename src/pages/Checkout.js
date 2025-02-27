@@ -24,13 +24,16 @@ L.Icon.Default.mergeOptions({
 
 const CheckoutContainer = styled.div`
   padding: 20px;
+  padding-top: 80px; /* Add padding-top to account for the navbar height */
 
   @media (min-width: 768px) {
     padding: 50px;
+    padding-top: 100px; /* Adjust for larger screens if needed */
   }
 
   @media (min-width: 1024px) {
     padding: 100px;
+    padding-top: 120px; /* Adjust for larger screens if needed */
   }
 `;
 
