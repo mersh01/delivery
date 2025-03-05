@@ -36,3 +36,70 @@
     transform: rotate(360deg);
   }
 }
+/* Footer Container */
+.footer {
+  position: relative;
+  background-color: #1a202c; /* Dark Gray */
+  color: white;
+  padding: 20px 0;
+  margin-top: 30px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+}
+
+/* Social Media Links */
+.footer-social {
+  display: flex;
+  gap: 20px; /* Space between links */
+}
+
+.social-link {
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease-in-out;
+}
+
+.telegram {
+  color: #1da1f2; /* Twitter Blue */
+}
+
+.facebook {
+  color: #1877f2; /* Facebook Blue */
+}
+
+.instagram {
+  color: #e1306c; /* Instagram Pink */
+}
+
+/* Hover Effect */
+.social-link:hover {
+  filter: brightness(1.5); /* Makes color brighter */
+}
+
+/* Copyright Text */
+.footer-text {
+  font-size: 14px;
+  color: #a0aec0; /* Light Gray */
+  white-space: nowrap; /* Prevents text from breaking */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .footer-social {
+    justify-content: center;
+  }
+}

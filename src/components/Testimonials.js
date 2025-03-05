@@ -36,7 +36,7 @@ const TestimonialCard = styled.div`
   padding: 30px;
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.1);
   width: 80%;
-  max-width: 600px;
+  max-width: 400px;
   transition: all 0.3s ease;
 
   &:hover {

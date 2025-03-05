@@ -50,55 +50,67 @@ const Login = () => {
   };
 
   return (
-    <>
-      {/* Navbar rendered outside help-container */}
+    <div style={styles.pageWrapper}>
       <Navbar />
-      <div style={styles.container}>
-        <h1>Login as Customer</h1>
-        <form onSubmit={handleLogin}>
-          <div style={styles.inputGroup}>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              style={styles.input}
-            />
-          </div>
-          <div style={styles.inputGroup}>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              style={styles.input}
-            />
-          </div>
-          <button type="submit" style={styles.submitButton}>
-            Login
+      <div style={styles.contentWrapper}>
+        <div style={styles.container}>
+          <h1>Login as Customer</h1>
+          <form onSubmit={handleLogin}>
+            <div style={styles.inputGroup}>
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                style={styles.input}
+              />
+            </div>
+            <div style={styles.inputGroup}>
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                style={styles.input}
+              />
+            </div>
+            <button type="submit" style={styles.submitButton}>
+              Login
+            </button>
+          </form>
+          <button 
+            type="button" 
+            onClick={handleRegisterRedirect} 
+            style={styles.registerButton}
+          >
+            Register
           </button>
-        </form>
-        <button 
-          type="button" 
-          onClick={handleRegisterRedirect} 
-          style={styles.registerButton}
-        >
-          Register
-        </button>
-        <ToastContainer />
+          <ToastContainer />
+        </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
+  
 };
 
 const styles = {
+  pageWrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh', // Ensures full height of the viewport
+  },
+  contentWrapper: {
+    flex: 1, // Pushes footer to the bottom
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     width: '100%',
     maxWidth: '400px',
-    margin: '100px auto',
     padding: '20px',
     textAlign: 'center',
     backgroundColor: '#f4f4f4',
@@ -123,17 +135,18 @@ const styles = {
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
-    marginBottom: '10px', // Added margin to separate from the register button
+    marginBottom: '10px',
   },
   registerButton: {
     width: '100%',
     padding: '12px',
-    backgroundColor: '#4CAF50', // Different color for the register button
+    backgroundColor: '#4CAF50',
     color: 'white',
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
   },
 };
+
 
 export default Login;

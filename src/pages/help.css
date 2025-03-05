@@ -9,9 +9,11 @@
 /* Add space around the carousel */
 .carousel-container {
   margin: 80px auto;
-  padding: 0 20px; /* Adds spacing from sides */
+  padding: 0 20px;
   position: relative;
+  min-height: 450px; /* Set a minimum height for image placeholders */
 }
+
 
 /* Make sure images do not touch the sides */
 .carousel-image {
