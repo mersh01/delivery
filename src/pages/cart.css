@@ -1,7 +1,7 @@
 /* cart.css */
 .cart-container {
   padding: 80px 20px 100px; /* Added extra bottom padding */
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
 }
