@@ -56,7 +56,10 @@ nav ul.left-links {
 
 /* Right-side icons */
 nav ul.right-icons {
+  position: fixed;
+
   display: flex;
+  right:0;
   align-items: center;
   gap: 20px; /* Add spacing between icons */
 }
