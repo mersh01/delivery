@@ -91,6 +91,10 @@ const CallToAction = styled.div`
   color: #222;
   margin-bottom: 15px;
   animation: ${scaleUp} 1.5s ease-in-out;
+
+  @media (max-width: 768px) {
+   color:orange;
+  }
 `;
 
 const ButtonsContainer = styled.div`
@@ -100,6 +104,8 @@ const ButtonsContainer = styled.div`
   animation: ${slideIn} 1.5s ease-in-out;
 
   @media (max-width: 768px) {
+    gap: 5px;
+    margin-top: 10px;
     flex-direction: column;
     align-items: center;
   }
